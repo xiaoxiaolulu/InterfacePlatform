@@ -29,7 +29,7 @@
             <el-table-column label="操作" width="300">
                 <template slot-scope="scope">
                     <el-button @click="onEditProject(scope.row)" size="mini">编辑</el-button>
-                    <el-button @click="onDeleteProject(scope.row)" type="danger" size="mini">删除</el-button>
+                    <el-button @click="onDeleteProject(scope.row, scope.$index)" type="danger" size="mini">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -114,13 +114,18 @@
                 this.addDialogVisiable = true
                 this.dialogType = "edit"
             },
-            onDeleteProject(project) {
-                this.$http.deleteProject(project.id).then(res => {
-                    console.log(res);
-                    this.$message.success("恭喜！项目删除成功！")
-                    this.getList();
-                }).catch(err => {
-                    this.$message.success(err)
+            onDeleteProject(project, index) {
+                this.$messagebox.confirm({
+                    message: "您确定要删除这个项目吗？",
+                    confirmCallback:()=> {
+                        this.$loading.show();
+                         this.$http.deleteProject(project.id).then(res => {
+                            console.log(res.data);
+                            this.projects.splice(index, 1);
+                            this.$loading.hide();
+                            this.$message.success("恭喜！项目删除成功！")
+                        })
+                    }
                 })
             },
             onSubmitAddProject() {

@@ -55,9 +55,25 @@ class Http {
         const url = "/api/project/" + project_id
         return this.http.delete(url)
     }
+
     getProjectDetail(project_id) {
         const url = "/api/project/" + project_id
         return this.http.get(url)
+    }
+
+    addHost(params) {
+        const url = "/api/host"
+        return this.http.post(url, params)
+    }
+
+    deleteHost(host_id) {
+        const url = "/api/host/" + host_id
+        return this.http.delete(url)
+    }
+
+    editHost(host_id, params) {
+        const url = "/api/host/" + host_id
+        return this.http.put(url, params)
     }
 }
 

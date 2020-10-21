@@ -5,7 +5,7 @@
                 <ProjectInfo :project="project"></ProjectInfo>
             </el-tab-pane>
             <el-tab-pane label="项目Host" name="2">
-<!--                <HostList :project="project"></HostList>-->
+                <HostList :project="project"></HostList>
             </el-tab-pane>
             <el-tab-pane label="API接口" name="3">
 <!--                <ApiEntry :project="project"></ApiEntry>-->
@@ -22,7 +22,7 @@
 
 <script type="text/ecmascript-6">
     import ProjectInfo from "./ProjectInfo"
-    // import HostList from "./HostList"
+    import HostList from "./HostList"
     // import ApiEntry from "./Api/ApiEntry"
     // import CaseEntry from "./Case/CaseEntry"
     // import RecordList from "./Record/RecordList"
@@ -37,7 +37,7 @@
         },
         components: {
             [ProjectInfo.name]: ProjectInfo,
-            // [HostList.name]: HostList,
+            [HostList.name]: HostList,
             // [ApiEntry.name]: ApiEntry,
             // [CaseEntry.name]: CaseEntry,
             // [RecordList.name]: RecordList
