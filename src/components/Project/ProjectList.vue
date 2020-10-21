@@ -12,7 +12,10 @@
             </el-table-column>
             <el-table-column prop="type" label="类型" width=100>
             </el-table-column>
-            <el-table-column prop="last_update_time" label="最后修改时间">
+            <el-table-column label="最后修改时间">
+                <template slot-scope="scope">
+                    {{scope.row.last_update_time|dateFormat}}
+                </template>
             </el-table-column>
             <el-table-column prop="description" label="描述">
             </el-table-column>
@@ -26,7 +29,7 @@
             <el-table-column label="操作" width="300">
                 <template slot-scope="scope">
                     <el-button @click="onEditProject(scope.row)" size="mini">编辑</el-button>
-                    <el-button type="danger" size="mini">删除</el-button>
+                    <el-button @click="onDeleteProject(scope.row)" type="danger" size="mini">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -55,6 +58,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+    import Vue from 'vue'
 
     export default {
         name: "ProjectList",
@@ -81,12 +85,14 @@
         },
         components: {},
         mounted() {
-            // this.$http.getProjectList().then(res => {
-            //     const projects = res.data
-            //     this.projects = projects
-            // })
+            this.getList()
         },
         methods: {
+            getList() {
+                this.$http.getProjectList().then(res => {
+                    this.projects = res.data
+                })
+            },
             initProjectForm() {
                 this.projectForm = {
                     name: "",
@@ -108,43 +114,51 @@
                 this.addDialogVisiable = true
                 this.dialogType = "edit"
             },
+            onDeleteProject(project) {
+                this.$http.deleteProject(project.id).then(res => {
+                    console.log(res);
+                    this.$message.success("恭喜！项目删除成功！")
+                    this.getList();
+                }).catch(err => {
+                    this.$message.success(err)
+                })
+            },
             onSubmitAddProject() {
                 this.$refs['projectForm'].validate(valid => {
                     if (!valid) {
                         return
                     }
                     this.addProjectButtonLoading = true
-                    if (this.dialogType == 'add') {
-                        // this.$http.addProject(this.projectForm).then(res => {
-                        //     this.addProjectButtonLoading = false
-                        //     if (res && res.status == 201) {
-                        //         const project = res.data
-                        //         this.projects.push(project)
-                        //         this.addDialogVisiable = false
-                        //         this.initProjectForm()
-                        //         this.$message.success("恭喜！项目创建成功！")
-                        //     }
-                        // })
-                    } else {
-                        // this.$http.editProject(this.projectForm.id, this.projectForm).then(res => {
-                        //     this.addProjectButtonLoading = false
-                        //     if (res) {
-                        //         this.addDialogVisiable = false
-                        //         this.initProjectForm()
-                        //         this.$message.success("恭喜！项目修改成功！")
-                        //         const project = res.data
-                        //         let index = 0
-                        //         for (let loop_project of this.projects) {
-                        //             console.log(loop_project);
-                        //             console.log('xxxxx');
-                        //             if (loop_project.id == project.id) {
-                        //                 Vue.set(this.projects, index, project)
-                        //                 break
-                        //             }
-                        //             index++
-                        //         }
-                        //     }
-                        // })
+                    if (this.dialogType === 'add') {
+                        this.$http.addProject(this.projectForm).then(res => {
+                            this.addProjectButtonLoading = false
+                            if (res && res.status === 201) {
+                                const project = res.data
+                                this.projects.push(project)
+                                this.addDialogVisiable = false
+                                this.initProjectForm()
+                                this.$message.success("恭喜！项目创建成功！")
+                            }
+                        })
+                    }
+                    if (this.dialogType === 'edit') {
+                        this.$http.editProject(this.projectForm.id, this.projectForm).then(res => {
+                            this.addProjectButtonLoading = false
+                            if (res) {
+                                this.addDialogVisiable = false
+                                this.initProjectForm()
+                                this.$message.success("恭喜！项目修改成功！")
+                                const project = res.data
+                                let index = 0
+                                for (let loop_project of this.projects) {
+                                    if (loop_project.id === project.id) {
+                                        Vue.set(this.projects, index, project)
+                                        break
+                                    }
+                                    index++
+                                }
+                            }
+                        })
                     }
                 })
             }

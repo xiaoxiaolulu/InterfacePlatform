@@ -5,6 +5,7 @@ import Frame from "./components/Frame"
 import Index from "./components/Index"
 import auth from "./utils/auth"
 import ProjectList from "./components/Project/ProjectList"
+import ProjectDetail from "./components/Project/ProjectDetail"
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const router = new VueRouter({
                 path: "project",
                 component: ProjectList,
                 name: "project_list"
+            },
+            {
+                path: "project/:project_id",
+                component: ProjectDetail,
+                name: "project_detail"
             }
         ]
     }, {
