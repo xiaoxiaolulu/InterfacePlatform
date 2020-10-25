@@ -131,6 +131,10 @@ class Http {
         return this.http.get(url)
     }
 
+    getIndexData() {
+        const url = "/api/index"
+        return this.http.get(url)
+    }
 }
 
 export default new Http()

@@ -7,7 +7,7 @@ import auth from "./utils/auth"
 import ProjectList from "./components/Project/ProjectList"
 import ProjectDetail from "./components/Project/ProjectDetail"
 import Settings from "./components/Settings"
-
+import MemberList from "./components/MemberList"
 
 Vue.use(VueRouter)
 
@@ -35,6 +35,11 @@ const router = new VueRouter({
                 path: "/settings",
                 component: Settings,
                 name: "settings"
+            },
+            {
+                path: "/users",
+                component: MemberList,
+                name: "member_list"
             }
         ]
     }, {
