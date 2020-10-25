@@ -135,6 +135,21 @@ class Http {
         const url = "/api/index"
         return this.http.get(url)
     }
+
+    addTask(params) {
+        const url = "/api/task"
+        return this.http.post(url, params)
+    }
+
+    editTask(task_id, params) {
+        const url = "/api/task/" + task_id
+        return this.http.put(url, params)
+    }
+
+    changeTaskStatus(task_id, task_status) {
+        const url = "/api/task/" + task_id + "/" + task_status
+        return this.http.post(url)
+    }
 }
 
 export default new Http()
