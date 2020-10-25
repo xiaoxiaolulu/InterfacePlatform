@@ -36,6 +36,16 @@ class Http {
         return this.http.post(url, params)
     }
 
+    getUserList() {
+        const url = '/auth/user'
+        return this.http.get(url)
+    }
+
+    editUser(params) {
+        const url = "/auth/user"
+        return this.http.put(url, params)
+    }
+
     addProject(params) {
         const url = "/api/project"
         return this.http.post(url, params)
@@ -75,6 +85,52 @@ class Http {
         const url = "/api/host/" + host_id
         return this.http.put(url, params)
     }
+
+    addApi(params) {
+        const url = "/api/api"
+        return this.http.post(url, params)
+    }
+
+    deleteApi(api_id) {
+        const url = "/api/api/" + api_id
+        return this.http.delete(url)
+    }
+
+    editApi(api_id, params) {
+        const url = "/api/api/" + api_id
+        return this.http.put(url, params)
+    }
+
+    runApi(id) {
+        const url = "/api/run/api/" + id
+        return this.http.post(url)
+    }
+
+    addCase(params) {
+        const url = "/api/case"
+        return this.http.post(url, params)
+    }
+
+    editCase(id, params) {
+        const url = "/api/case/" + id
+        return this.http.put(url, params)
+    }
+
+    runCase(id) {
+        const url = "/api/run/case/" + id
+        return this.http.post(url)
+    }
+
+    getApiRecords(project_id) {
+        const url = "/api/records?project_id=" + project_id + "&type=api"
+        return this.http.get(url)
+    }
+
+    getCaseRecords(project_id) {
+        const url = "/api/records?project_id=" + project_id + "&type=case"
+        return this.http.get(url)
+    }
+
 }
 
 export default new Http()

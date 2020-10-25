@@ -8,13 +8,13 @@
                 <HostList :project="project"></HostList>
             </el-tab-pane>
             <el-tab-pane label="API接口" name="3">
-<!--                <ApiEntry :project="project"></ApiEntry>-->
+                <ApiEntry :project="project"></ApiEntry>
             </el-tab-pane>
             <el-tab-pane label="测试用例" name="4">
-<!--                <CaseEntry :project="project"></CaseEntry>-->
+                <CaseEntry :project="project"></CaseEntry>
             </el-tab-pane>
             <el-tab-pane label="运行记录" name="5">
-<!--                <RecordList :project="project"></RecordList>-->
+                <RecordList :project="project"></RecordList>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -23,9 +23,9 @@
 <script type="text/ecmascript-6">
     import ProjectInfo from "./ProjectInfo"
     import HostList from "./HostList"
-    // import ApiEntry from "./Api/ApiEntry"
-    // import CaseEntry from "./Case/CaseEntry"
-    // import RecordList from "./Record/RecordList"
+    import ApiEntry from "./Api/ApiEntry"
+    import CaseEntry from "./Case/CaseEntry"
+    import RecordList from "./Record/RecordList"
 
     export default {
         name: "ProjectDetail",
@@ -38,9 +38,9 @@
         components: {
             [ProjectInfo.name]: ProjectInfo,
             [HostList.name]: HostList,
-            // [ApiEntry.name]: ApiEntry,
-            // [CaseEntry.name]: CaseEntry,
-            // [RecordList.name]: RecordList
+            [ApiEntry.name]: ApiEntry,
+            [CaseEntry.name]: CaseEntry,
+            [RecordList.name]: RecordList
         },
         mounted() {
             const project_id = this.$route.params.project_id

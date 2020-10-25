@@ -6,6 +6,8 @@ import Index from "./components/Index"
 import auth from "./utils/auth"
 import ProjectList from "./components/Project/ProjectList"
 import ProjectDetail from "./components/Project/ProjectDetail"
+import Settings from "./components/Settings"
+
 
 Vue.use(VueRouter)
 
@@ -28,6 +30,11 @@ const router = new VueRouter({
                 path: "project/:project_id",
                 component: ProjectDetail,
                 name: "project_detail"
+            },
+            {
+                path: "/settings",
+                component: Settings,
+                name: "settings"
             }
         ]
     }, {
